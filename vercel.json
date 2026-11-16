@@ -1,22 +1,8 @@
 {
   "version": 2,
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/docs",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/openapi.json",
-      "destination": "/api/index.py"
-    }
-  ],
   "functions": {
     "api/index.py": {
-      "includeFiles": "next_word_prediction.keras,tokenizer.pkl,backend/**,public/**"
+      "includeFiles": "next_word_prediction.keras,tokenizer.pkl,backend/**"
     }
   }
 }
