@@ -19,7 +19,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 INPUT_LEN = 19
 
 # Load trained model
-model = tf.keras.models.load_model("next_word_model.keras")
+model = tf.keras.models.load_model("next_word_prediction.keras")
 
 # Load tokenizer
 with open("tokenizer.pkl", "rb") as file:
