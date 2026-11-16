@@ -1,0 +1,22 @@
+# Python cache & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# System & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Vercel & logs
+.vercel/
+*.log

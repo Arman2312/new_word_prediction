@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuraType AI - Next Word Prediction & Text Completion</title>
+    <meta name="description" content="State-of-the-art LSTM neural network next word prediction with interactive real-time typing, probability analytics, and text generation.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme">
+    <!-- Background Animated Gradient Orbs -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-brand">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a4 4 0 0 0-4 4v1a4 4 0 0 0-3 3.86c0 1.2.54 2.29 1.4 3.03A5 5 0 0 0 10 18.9V20a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-1.1a5 5 0 0 0 3.6-4.99c.86-.74 1.4-1.83 1.4-3.03A4 4 0 0 0 16 7V6a4 4 0 0 0-4-4z"/>
+                        <line x1="12" y1="2" x2="12" y2="7"/>
+                        <line x1="8" y1="12" x2="16" y2="12"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="brand-title-wrap">
+                        <h1 class="brand-title">NeuraType <span class="gradient-text">AI</span></h1>
+                        <span class="badge badge-primary">LSTM Engine</span>
+                    </div>
+                    <p class="brand-subtitle">Deep Learning Next Word Prediction & Text Completion</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="status-indicator-box" id="statusBadge">
+                    <span class="status-dot pulse"></span>
+                    <span id="statusText">Connecting...</span>
+                </div>
+
+                <a href="/api/download" class="nav-btn" title="Download Entire Project as ZIP">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Download ZIP</span>
+                </a>
+
+                <a href="/docs" target="_blank" class="nav-btn" title="View OpenAPI / Swagger Documentation">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                    <span>API Docs</span>
+                </a>
+
+                <button class="icon-btn" id="themeToggle" title="Toggle Light/Dark Theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Quick Examples Pill Shelf -->
+        <div class="preset-section">
+            <span class="preset-label">Quick Prompts:</span>
+            <div class="preset-chips" id="presetChipsContainer">
+                <!-- Dynamically loaded from API -->
+                <button class="preset-chip" data-prompt="the future of artificial">the future of artificial...</button>
+                <button class="preset-chip" data-prompt="i am looking forward to">i am looking forward to...</button>
+                <button class="preset-chip" data-prompt="once upon a time in a">once upon a time in a...</button>
+                <button class="preset-chip" data-prompt="machine learning algorithms are designed to">machine learning algorithms...</button>
+            </div>
+        </div>
+
+        <!-- Main Workspace Grid -->
+        <main class="main-grid">
+            <!-- Left Column: Interactive Typing & Generation -->
+            <section class="card editor-card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <h2 class="card-title">Interactive Sentence Composer</h2>
+                        <span class="card-hint">Type naturally or pick predictions below</span>
+                    </div>
+                    <div class="editor-header-controls">
+                        <label class="toggle-switch" title="Automatically predict as you type">
+                            <input type="checkbox" id="autoPredictToggle" checked>
+                            <span class="slider"></span>
+                            <span class="toggle-label">Auto Predict</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Textarea with Ghost Prediction -->
+                <div class="editor-wrap">
+                    <div class="ghost-overlay" id="ghostOverlay">
+                        <span class="ghost-typed" id="ghostTyped"></span><span class="ghost-suggestion" id="ghostSuggestion"></span>
+                    </div>
+                    <textarea 
+                        id="textInput" 
+                        class="text-editor" 
+                        placeholder="Type a phrase here (e.g. 'the future of artificial')..." 
+                        rows="4" 
+                        spellcheck="false"
+                        autocomplete="off"
+                    ></textarea>
+                </div>
+
+                <!-- Ghost Accept Shortcut Bar -->
+                <div class="tab-hint-bar" id="tabHintBar" style="display: none;">
+                    <div class="tab-hint-content">
+                        <kbd>Tab</kbd> or <kbd>→</kbd> to accept: <strong id="ghostWordHighlight">word</strong>
+                    </div>
+                    <button class="btn-ghost-accept" id="btnAcceptGhost">Accept</button>
+                </div>
+
+                <!-- Clickable Suggestion Chips -->
+                <div class="suggestions-bar">
+                    <div class="suggestions-label">
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        <span>Top Word Suggestions:</span>
+                    </div>
+                    <div class="chips-container" id="chipsContainer">
+                        <span class="chip-placeholder">Type a sentence to see instant word predictions...</span>
+                    </div>
+                </div>
+
+                <!-- Editor Footer Controls -->
+                <div class="editor-footer">
+                    <div class="editor-stats">
+                        <span id="charCount">0 characters</span>
+                        <span class="stat-separator">•</span>
+                        <span id="wordCount">0 words</span>
+                        <span class="stat-separator">•</span>
+                        <span id="latencyStat" class="latency-stat">Latency: -- ms</span>
+                    </div>
+                    <div class="editor-actions">
+                        <button class="btn btn-secondary" id="btnClear" title="Clear text">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                            <span>Clear</span>
+                        </button>
+                        <button class="btn btn-secondary" id="btnCopy" title="Copy text to clipboard">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span>Copy</span>
+                        </button>
+                        <button class="btn btn-primary" id="btnPredict">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <span>Predict Next</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Multi-Word Auto-Complete Generator Panel -->
+                <div class="generator-panel">
+                    <div class="generator-header">
+                        <div class="gen-title-group">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
+                            <h3>Multi-Word Auto Completion</h3>
+                        </div>
+                        <span class="pill-tag">Autoregressive Generator</span>
+                    </div>
+
+                    <div class="generator-controls">
+                        <div class="control-item">
+                            <div class="control-label-wrap">
+                                <label for="wordCountSlider">Generate Words:</label>
+                                <span class="control-val" id="wordCountVal">5 words</span>
+                            </div>
+                            <input type="range" id="wordCountSlider" min="1" max="20" value="5" class="slider-range">
+                        </div>
+
+                        <div class="control-item">
+                            <div class="control-label-wrap">
+                                <label for="tempSlider">Creativity / Temp:</label>
+                                <span class="control-val" id="tempVal">0.8</span>
+                            </div>
+                            <input type="range" id="tempSlider" min="0.1" max="2.0" step="0.1" value="0.8" class="slider-range">
+                        </div>
+
+                        <div class="control-item">
+                            <div class="control-label-wrap">
+                                <label for="genModeSelect">Strategy:</label>
+                            </div>
+                            <select id="genModeSelect" class="styled-select">
+                                <option value="greedy">Greedy (Most Likely)</option>
+                                <option value="sample" selected>Top-K Sampling (Creative)</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-accent" id="btnGenerate">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                            <span>Generate Text</span>
+                        </button>
+                    </div>
+
+                    <!-- Generation Output Preview -->
+                    <div class="generation-result" id="genResultBox" style="display: none;">
+                        <div class="gen-result-header">
+                            <span class="gen-label">Generated Completion:</span>
+                            <button class="btn-inline-apply" id="btnApplyGen" title="Append these words to your editor">Append to Editor</button>
+                        </div>
+                        <div class="gen-result-text" id="genResultText"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Column: Analytics & Model Inspector -->
+            <aside class="sidebar-column">
+                <!-- Probability Distribution Card -->
+                <section class="card analytics-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Prediction Probabilities</h2>
+                        <span class="badge badge-secondary" id="topKBadge">Top 5</span>
+                    </div>
+
+                    <div class="probabilities-list" id="probabilitiesList">
+                        <div class="empty-state">
+                            <div class="empty-icon">📊</div>
+                            <p>No predictions computed yet.</p>
+                            <small>Start typing on the left to see neural network confidence levels.</small>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Model Diagnostics & Token Inspector -->
+                <section class="card inspector-card">
+                    <div class="card-header collapsible" id="inspectorToggle">
+                        <div class="inspector-title-wrap">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                                <polyline points="4 17 10 11 4 5"></polyline>
+                                <line x1="12" y1="19" x2="20" y2="19"></line>
+                            </svg>
+                            <h2 class="card-title">Neural Token Inspector</h2>
+                        </div>
+                        <span class="collapse-icon">▼</span>
+                    </div>
+
+                    <div class="inspector-body" id="inspectorBody">
+                        <div class="inspector-metric">
+                            <span class="metric-title">Cleaned Input:</span>
+                            <div class="code-box" id="inspectCleaned">--</div>
+                        </div>
+
+                        <div class="inspector-metric">
+                            <span class="metric-title">Extracted Tokens:</span>
+                            <div class="code-box" id="inspectTokens">[]</div>
+                        </div>
+
+                        <div class="inspector-metric">
+                            <span class="metric-title">Vocabulary Token IDs:</span>
+                            <div class="code-box" id="inspectTokenIds">[]</div>
+                        </div>
+
+                        <div class="inspector-metric">
+                            <span class="metric-title">LSTM Padded Sequence (19-dim vector):</span>
+                            <div class="vector-display" id="inspectVector">
+                                <span class="vector-empty">Vector empty</span>
+                            </div>
+                        </div>
+
+                        <div class="model-specs-grid" id="modelSpecsGrid">
+                            <div class="spec-card">
+                                <span class="spec-name">Input Shape</span>
+                                <span class="spec-val">1 × 19</span>
+                            </div>
+                            <div class="spec-card">
+                                <span class="spec-name">Vocabulary</span>
+                                <span class="spec-val" id="specVocab">10,000</span>
+                            </div>
+                            <div class="spec-card">
+                                <span class="spec-name">Architecture</span>
+                                <span class="spec-val">Embedding + LSTM</span>
+                            </div>
+                            <div class="spec-card">
+                                <span class="spec-name">Model Size</span>
+                                <span class="spec-val" id="specSize">~32 MB</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>NeuraType AI Next Word Prediction • Powered by TensorFlow & FastAPI</p>
+            <div class="footer-links">
+                <a href="/api/health" target="_blank">Health Check</a>
+                <span class="dot">•</span>
+                <a href="/api/info" target="_blank">Model Info</a>
+                <span class="dot">•</span>
+                <a href="/docs" target="_blank">Swagger API</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">Text copied to clipboard!</div>
+
+    <!-- Application JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>

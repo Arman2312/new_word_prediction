@@ -1,5 +1,8 @@
+# Core API & Web Server
+fastapi>=0.110.0
+uvicorn[standard]>=0.28.0
+pydantic>=2.0.0
 
-streamlit
-tensorflow==2.21.0
-numpy
-
+# Fast LSTM Model Inference Engine
+numpy>=1.24.0
+h5py>=3.10.0
