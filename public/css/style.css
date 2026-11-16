@@ -1133,3 +1133,166 @@ body.light-theme .moon-icon { display: block; }
 .footer-links a:hover {
     color: var(--primary);
 }
+
+/* ==========================================================================
+   Model Training & Fine-Tuning Studio Styles
+   ========================================================================== */
+.training-panel {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.training-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.train-title-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--success);
+}
+
+.train-title-group h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.pill-train {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.train-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    line-height: 1.5;
+}
+
+.train-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.train-input-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.train-textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    outline: none;
+    resize: vertical;
+    transition: var(--transition);
+}
+
+.train-textarea:focus {
+    border-color: var(--success);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.train-controls-row {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr auto;
+    gap: 14px;
+    align-items: end;
+}
+
+@media (max-width: 768px) {
+    .train-controls-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.btn-train {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+    border: none;
+}
+
+.btn-train:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+}
+
+.btn-train.training {
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.train-progress-box {
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: var(--radius-md);
+    animation: fadeInWord 0.3s ease-out;
+}
+
+.train-progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.825rem;
+    font-weight: 700;
+    color: var(--success);
+    margin-bottom: 8px;
+}
+
+.train-progress-bar-track {
+    width: 100%;
+    height: 8px;
+    background: var(--bg-surface);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.train-progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981 0%, #38bdf8 100%);
+    border-radius: 4px;
+    transition: width 0.35s ease;
+}
+
+.train-log-stream {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    max-height: 90px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 8px;
+    background: var(--bg-surface);
+    border-radius: 4px;
+    border: 1px solid var(--border-subtle);
+}
+
+.train-log-line {
+    line-height: 1.4;
+}
+
+.train-log-line.success {
+    color: var(--success);
+    font-weight: 600;
+}
