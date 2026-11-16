@@ -74,6 +74,21 @@ class ModelPredictor:
     def load(self) -> bool:
         """Load Keras model weights and tokenizer into memory."""
         try:
+            # Check candidate locations for Vercel Serverless environment
+            candidate_dirs = [
+                self.base_dir,
+                os.getcwd(),
+                os.path.abspath(os.path.join(os.path.dirname(__file__), "..")),
+                "/var/task",
+            ]
+            for c in candidate_dirs:
+                m_path = os.path.join(c, "next_word_prediction.keras")
+                t_path = os.path.join(c, "tokenizer.pkl")
+                if os.path.exists(m_path):
+                    self.model_path = m_path
+                if os.path.exists(t_path):
+                    self.tokenizer_path = t_path
+
             logger.info(f"Loading tokenizer from: {self.tokenizer_path}")
             if not os.path.exists(self.tokenizer_path):
                 raise FileNotFoundError(f"Tokenizer not found at {self.tokenizer_path}")
