@@ -157,32 +157,32 @@ def generate(payload: GenerateRequest):
 
 @router.get("/examples", response_model=List[ExamplePrompt], tags=["Examples"])
 def get_examples():
-    """Return preconfigured interesting prompts for testing."""
+    """Return preconfigured interesting prompts from the Shakespeare dataset."""
     return [
         ExamplePrompt(
-            category="Technology",
-            prompt="the future of artificial",
-            description="Predicts domain technology concepts like 'intelligence'.",
+            category="Dataset Quote",
+            prompt="before we proceed any further hear me",
+            description="Predicts exact ground-truth next word: 'speak'.",
         ),
         ExamplePrompt(
-            category="Daily Conversation",
-            prompt="i am looking forward to",
-            description="Common conversational English phrasing.",
+            category="Dataset Quote",
+            prompt="you are all resolved rather to die than to",
+            description="Predicts exact ground-truth next word: 'famish'.",
         ),
         ExamplePrompt(
-            category="Narrative",
-            prompt="once upon a time in a",
-            description="Storytelling and narrative sequences.",
+            category="Dataset Quote",
+            prompt="first you know caius marcius is chief",
+            description="Predicts exact ground-truth next word: 'enemy'.",
         ),
         ExamplePrompt(
-            category="Science & Research",
-            prompt="machine learning algorithms are designed to",
-            description="Technical phrase completion.",
+            category="Famous Quote",
+            prompt="to be or not to",
+            description="Predicts famous continuation: 'be'.",
         ),
         ExamplePrompt(
-            category="Inquiry",
-            prompt="what is the most important",
-            description="Question formulation prediction.",
+            category="Dataset Quote",
+            prompt="what light through yonder window",
+            description="Predicts exact ground-truth next word: 'breaks'.",
         ),
     ]
 

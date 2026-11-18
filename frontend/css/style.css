@@ -1296,3 +1296,41 @@ body.light-theme .moon-icon { display: block; }
     color: var(--success);
     font-weight: 600;
 }
+
+/* Dataset Alignment Styles */
+.word-chip.dataset-match {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.15);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+}
+
+.chip-pct.dataset-pct {
+    background: rgba(16, 185, 129, 0.25);
+    color: #10b981;
+    font-weight: 700;
+}
+
+.prob-row.dataset-row {
+    border-color: rgba(16, 185, 129, 0.4);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.badge-dataset-inline {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.18);
+    padding: 2px 7px;
+    border-radius: 4px;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    letter-spacing: 0.02em;
+}
+
+.prob-value.dataset-val {
+    color: #10b981;
+    font-weight: 700;
+}
+
+.prob-bar-fill.dataset-fill {
+    background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+}

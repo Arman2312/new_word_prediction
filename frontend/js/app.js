@@ -385,10 +385,12 @@
 
         predictions.slice(0, 6).forEach((item, index) => {
             const chip = document.createElement("button");
-            chip.className = `word-chip ${index === 0 ? "top-choice" : ""}`;
+            const isDataset = item.from_dataset;
+            chip.className = `word-chip ${index === 0 ? "top-choice" : ""} ${isDataset ? "dataset-match" : ""}`;
+            chip.title = isDataset ? "Exact ground-truth match from the Shakespeare dataset" : "Neural network prediction";
             chip.innerHTML = `
-                <span class="chip-word">${escapeHtml(item.word)}</span>
-                <span class="chip-pct">${item.percentage.toFixed(1)}%</span>
+                <span class="chip-word">${isDataset ? "⭐ " : ""}${escapeHtml(item.word)}</span>
+                <span class="chip-pct ${isDataset ? "dataset-pct" : ""}">${item.percentage.toFixed(1)}%</span>
             `;
 
             chip.addEventListener("click", () => {
@@ -410,17 +412,19 @@
 
         predictions.forEach(item => {
             const row = document.createElement("div");
-            row.className = "prob-row";
+            const isDataset = item.from_dataset;
+            row.className = `prob-row ${isDataset ? "dataset-row" : ""}`;
             row.innerHTML = `
                 <div class="prob-header">
                     <div class="prob-word-wrap">
                         <span class="prob-rank">#${item.rank}</span>
                         <span class="prob-word">${escapeHtml(item.word)}</span>
+                        ${isDataset ? '<span class="badge-dataset-inline">⭐ Dataset Ground Truth</span>' : ''}
                     </div>
-                    <span class="prob-value">${item.percentage.toFixed(2)}%</span>
+                    <span class="prob-value ${isDataset ? "dataset-val" : ""}">${item.percentage.toFixed(1)}%</span>
                 </div>
                 <div class="prob-bar-track">
-                    <div class="prob-bar-fill" style="width: 0%"></div>
+                    <div class="prob-bar-fill ${isDataset ? "dataset-fill" : ""}" style="width: 0%"></div>
                 </div>
             `;
 

@@ -2,7 +2,7 @@
   "version": 2,
   "functions": {
     "api/index.py": {
-      "includeFiles": "next_word_prediction.keras,tokenizer.pkl,backend/**"
+      "includeFiles": "next_word_prediction.keras,tokenizer.pkl,shakespeare.txt,backend/**"
     }
   }
 }

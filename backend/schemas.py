@@ -10,6 +10,8 @@ class CandidateWord(BaseModel):
     word: str = Field(..., description="Predicted next word")
     probability: float = Field(..., description="Probability score between 0.0 and 1.0")
     percentage: float = Field(..., description="Confidence percentage (0 to 100)")
+    from_dataset: bool = Field(False, description="Whether this word directly matches the training dataset ground truth")
+    dataset_match_order: Optional[int] = Field(None, description="N-gram match context length (e.g. 4 for 4-gram)")
 
 
 class TokenDebugInfo(BaseModel):
@@ -33,6 +35,7 @@ class PredictResponse(BaseModel):
     input_text: str
     predictions: List[CandidateWord] = Field(default_factory=list)
     top_word: Optional[str] = None
+    dataset_matched: bool = False
     latency_ms: float = 0.0
     tokens_info: Optional[TokenDebugInfo] = None
     error: Optional[str] = None
